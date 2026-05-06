@@ -1,0 +1,27 @@
+---
+interface Props {
+  role: string;
+  company: string;
+  period: string;
+  location?: string;
+  summary: string;
+}
+
+const { role, company, period, location, summary } = Astro.props;
+---
+
+<article class="border-t border-border-soft pt-10 mt-10 first:mt-0 first:border-t-0 first:pt-0">
+  <header class="mb-3">
+    <h3 class="serif text-xl md:text-2xl font-medium text-text tracking-tight">
+      {role}
+      <span class="text-text-muted font-normal"> · {company}</span>
+    </h3>
+    <p class="mono text-xs uppercase tracking-[0.16em] text-text-subtle mt-1">
+      {period}{location ? ` · ${location}` : ""}
+    </p>
+  </header>
+
+  <p class="text-base md:text-lg text-text-muted leading-relaxed">
+    {summary}
+  </p>
+</article>

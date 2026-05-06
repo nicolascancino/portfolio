@@ -2,17 +2,19 @@
 import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
 import WorkCard from "../components/WorkCard.astro";
+import Experience from "../components/Experience.astro";
 
 const email = "ncancino7@gmail.com";
 const github = "https://github.com/nicolascancino";
 const linkedin = "https://www.linkedin.com/in/nicolascancinogarrido/";
 
 const stack = {
-  "Languages": ["Go", "TypeScript", "JavaScript", "SQL", "HTML", "CSS"],
-  "Backend": ["Go (chi, GORM)", "PostgreSQL", "REST", "JWT auth", "Hexagonal architecture", "testify", "testcontainers"],
-  "Frontend": ["Astro", "Tailwind CSS", "PWA / service workers", "hls.js"],
-  "Cloud / Infra": ["Google Cloud Run", "Cloudflare Workers", "Cloudflare R2", "Supabase", "Workload Identity Federation", "GitHub Actions"],
-  "Tooling": ["Docker", "Git", "ripgrep", "Conventional Commits", "Spec-Driven Development"],
+  "Languages": ["Go", "Java", "JavaScript / Node.js", "SQL", "TypeScript"],
+  "Cloud / Infra": ["GCP (GKE, Pub/Sub, Cloud SQL, BigQuery, Dataflow, Cloud Endpoints)", "Docker", "Kubernetes", "Terraform"],
+  "Databases": ["PostgreSQL", "BigQuery", "Firestore"],
+  "Architecture": ["Microservices", "Event-driven systems", "Hexagonal architecture", "REST APIs"],
+  "Observability": ["Structured logging (zerolog)", "Distributed tracing via context propagation", "Datadog"],
+  "DevOps & Tooling": ["GitLab CI/CD", "GitHub Actions", "Git", "Conventional Commits", "AI-assisted development (Claude Code, MCP)"],
 };
 ---
 
@@ -22,7 +24,7 @@ const stack = {
     <header class="pt-24 pb-12 md:pt-32 md:pb-16 border-b border-border-soft">
       <div class="mx-auto max-w-3xl px-6">
         <p class="mono text-xs uppercase tracking-[0.18em] text-text-subtle mb-6">
-          Software Engineer
+          Senior Backend Engineer · 8 years
         </p>
 
         <h1 class="serif text-5xl md:text-6xl lg:text-7xl font-medium text-text leading-[1.05] tracking-tight mb-8">
@@ -30,14 +32,15 @@ const stack = {
         </h1>
 
         <p class="text-lg md:text-xl text-text-muted leading-relaxed mb-8 max-w-2xl">
-          I build production SaaS platforms in Go and Astro — backend, frontend,
-          and cloud infra end-to-end. Currently shipping fitness/learning
-          products for real clients.
+          I build cloud-native distributed systems in Go on GCP — microservices,
+          event-driven pipelines, hexagonal architectures, and data platforms at
+          retail scale.
         </p>
 
         <p class="text-base text-text-muted leading-relaxed mb-10 max-w-2xl">
           <span class="text-text font-medium">Open to remote employment</span>
-          and select freelance work. Based in LATAM, working across timezones.
+          and select freelance work. Based in Santiago, Chile · working across
+          LATAM and US timezones.
         </p>
 
         <div class="flex flex-wrap gap-x-6 gap-y-3 items-center">
@@ -69,53 +72,66 @@ const stack = {
       </div>
     </header>
 
-    <!-- Work -->
-    <Section id="work" label="Selected work" title="Two SaaS platforms shipped to real clients.">
+    <!-- Experience -->
+    <Section id="experience" label="Experience" title="8 years building backend systems.">
+      <Experience
+        role="Senior Software Engineer"
+        company="Falabella — Corporate Pricing Platform"
+        period="Nov 2021 – Apr 2026"
+        location="Santiago, Chile"
+        summary="Migrated legacy pricing services to Google Cloud (GKE, Pub/Sub, Cloud SQL) following the platform team's target architecture, modernizing critical systems serving multiple Falabella retail brands. Designed the event-driven ingestion channel via Pub/Sub for the core pricing platform, complementing existing bulk-file and REST API channels (price creation, expiration, and competition tracking). Built a data unification pipeline using Apache Beam / Dataflow (Java), Pub/Sub, and Kubernetes to consolidate heterogeneous pricing data from multiple stores into a single normalized response. Implemented PostgreSQL → BigQuery historical offload, freeing transactional capacity and enabling analytics at scale. Tuned PostgreSQL with pg_stat_statements + targeted indexes for high-frequency operations."
+      />
+
+      <Experience
+        role="Backend Engineer (Independent Consultant)"
+        company="Freelance"
+        period="Feb 2022 – present"
+        location="Remote"
+        summary="Led the from-scratch rebuild of a production service using hexagonal architecture in Go, plus a custom migration tool to transform and move ~30M records across 10 tenants from Firestore to PostgreSQL — enabling complex filtering not feasible in the previous NoSQL design. Drove adoption of code-first API documentation by introducing OpenAPI/Swagger generation directly from Go code via swaggo. Refactored multiple Go microservices to hexagonal architecture, decoupling domain logic from infrastructure. Implemented end-to-end request tracing via context.Context propagation and structured logging with zerolog."
+      />
+
+      <Experience
+        role="Semi-Senior Software Engineer"
+        company="BC Tecnología — client: Falabella"
+        period="Jul 2019 – Oct 2021"
+        location="Santiago, Chile"
+        summary="Designed and built backend microservices and REST APIs in Node.js for the Falabella e-commerce platform, supporting production traffic across the retail ecosystem. Owned the full microservice lifecycle: API design, implementation, integration with internal platforms, deployment, and observability."
+      />
+
+      <Experience
+        role="Software Engineer"
+        company="Zenta"
+        period="Mar 2019 – Jul 2019"
+        location="Santiago, Chile"
+        summary="Built proof-of-concept solutions for LATAM corporate clients, including a 'Things to do' recommendation chatbot integrating Google Maps and DialogFlow."
+      />
+
+      <Experience
+        role="Software Engineer"
+        company="23People SPA"
+        period="Jan 2018 – Mar 2019"
+        location="Santiago, Chile"
+        summary="Developed Java/Spring microservices for a corporate internal application along with the corresponding Angular frontends consuming those services."
+      />
+    </Section>
+
+    <!-- Side projects -->
+    <Section id="projects" label="Side projects" title="What I'm building on the side.">
       <WorkCard
         title="Ambrocito Training"
-        role="Solo build · 2 days from template clone"
-        client="a calisthenics coach"
-        description="Calisthenics course platform: course → block → session hierarchy, video upload via signed R2 URLs, HMAC-gated playback through a Cloudflare Worker, MercadoPago checkout, JWT auth with Google sign-in linking. Cloned from the danig template in 2 days, then iterated independently."
-        stack={["Go 1.25", "Astro 6", "PostgreSQL", "Cloud Run", "Cloudflare Workers + R2", "Supabase"]}
+        description="Online platform for selling and streaming calisthenics video courses. Course catalog, lesson player with HMAC-protected HLS streaming, MercadoPago checkout, JWT auth with Google sign-in linking, transactional email."
+        stack={["Go 1.25", "Astro 6", "Tailwind v4", "PostgreSQL", "GORM", "Cloud Run", "Cloudflare Workers", "Cloudflare R2", "Supabase", "Resend"]}
         liveUrl="https://ambrocito-web.ncancino7.workers.dev"
         repoUrl="https://github.com/nicolascancino/ambrocito-training"
       />
 
       <WorkCard
         title="DaniG Yoga"
-        role="Solo build · 8-week original template"
-        client="a yoga instructor"
-        description="Yoga course platform — the original codebase. Hexagonal Go backend (chi + GORM + testify + testcontainers), Astro PWA frontend with hls.js video player, Cloudflare Pages + Cloud Run + Supabase deploy. Authored as a clonable template; ambrocito reuses 90% of its structure."
-        stack={["Go 1.25", "Astro 6", "PostgreSQL", "Cloud Run", "Cloudflare Pages + R2", "Supabase"]}
+        description="Online platform for selling and streaming yoga video courses. Hexagonal Go backend, Astro PWA frontend with hls.js video player, full deploy stack on Cloud Run + Cloudflare Pages + Supabase."
+        stack={["Go 1.25", "Astro 6", "Tailwind v4", "PostgreSQL", "GORM", "Cloud Run", "Cloudflare Pages", "Cloudflare R2", "Supabase"]}
         liveUrl="https://danig-web.ncancino7.workers.dev"
         repoUrl="https://github.com/nicolascancino/danig"
       />
-    </Section>
-
-    <!-- Approach -->
-    <Section label="How I work" title="Specs first, then code.">
-      <div class="space-y-6 text-base md:text-lg text-text-muted leading-relaxed">
-        <p>
-          Every change in these projects flowed through a lightweight
-          spec-driven workflow: proposal → spec (Given/When/Then) → design →
-          tasks → apply → verify → archive. The artifacts are committed
-          alongside the code in <code class="mono text-sm bg-bg-alt px-1.5 py-0.5 rounded border border-border-soft">openspec/</code>,
-          so the reasoning behind every architectural decision (hybrid naming,
-          AutoMigrate one-shot, dual-auth, secret rotation) survives review and
-          onboarding.
-        </p>
-        <p>
-          I optimize for <em class="serif italic font-medium text-text">decisions documented</em>,
-          not lines of code. CI guards prevent regressions
-          (<code class="mono text-sm bg-bg-alt px-1.5 py-0.5 rounded border border-border-soft">DB_RUN_MIGRATIONS=true</code>
-          in production, donor-template leakage). Bugs caught in production
-          land back in the runbook so the next operator avoids the wall I hit.
-        </p>
-        <p>
-          Tests are integration-heavy with testcontainers — I'd rather catch a
-          schema bug against a real PostgreSQL than mock my way around it.
-        </p>
-      </div>
     </Section>
 
     <!-- Stack -->
