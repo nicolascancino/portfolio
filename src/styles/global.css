@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/newsreader/400.css";
+@import "@fontsource/newsreader/500.css";
+@import "@fontsource/newsreader/600.css";
+@import "@fontsource/newsreader/400-italic.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+@theme {
+  /* Editorial light palette */
+  --color-bg:           #FAFAF9;
+  --color-bg-alt:       #F4F1EC;
+  --color-text:         #0A0A0A;
+  --color-text-muted:   #525252;
+  --color-text-subtle:  #8B8B8B;
+  --color-border:       #E5E5E2;
+  --color-border-soft:  #EFECE8;
+  --color-accent:       #2563EB;
+  --color-accent-hover: #1D4ED8;
+
+  /* Typography */
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans:  "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+html, body {
+  background-color: #FAFAF9;
+  color: #0A0A0A;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "ss02", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+  background: #2563EB;
+  color: #FAFAF9;
+}
+
+/* Editorial helpers */
+.serif {
+  font-family: "Newsreader", Georgia, serif;
+  font-feature-settings: "kern", "liga";
+}
+
+.mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-feature-settings: "ss02";
+}

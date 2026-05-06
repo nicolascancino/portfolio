@@ -1,0 +1,71 @@
+---
+interface Props {
+  title: string;
+  role: string;
+  description: string;
+  stack: string[];
+  liveUrl?: string;
+  repoUrl?: string;
+  client?: string;
+}
+
+const { title, role, description, stack, liveUrl, repoUrl, client } = Astro.props;
+---
+
+<article class="border-t border-border-soft pt-10 mt-10 first:mt-0 first:border-t-0 first:pt-0">
+  <header class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-3">
+    <h3 class="serif text-2xl md:text-3xl font-medium text-text tracking-tight">
+      {title}
+    </h3>
+    {client && (
+      <span class="mono text-xs uppercase tracking-wider text-text-subtle">
+        for {client}
+      </span>
+    )}
+  </header>
+
+  <p class="mono text-xs uppercase tracking-[0.16em] text-text-subtle mb-4">
+    {role}
+  </p>
+
+  <p class="text-base md:text-lg text-text-muted leading-relaxed mb-6">
+    {description}
+  </p>
+
+  <div class="flex flex-wrap gap-2 mb-6">
+    {stack.map((s) => (
+      <span class="mono text-xs px-2.5 py-1 rounded border border-border bg-bg-alt text-text-muted">
+        {s}
+      </span>
+    ))}
+  </div>
+
+  <div class="flex gap-5 items-center">
+    {liveUrl && (
+      <a
+        href={liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+      >
+        Live
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+    )}
+    {repoUrl && (
+      <a
+        href={repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted hover:text-text transition-colors"
+      >
+        Source
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+    )}
+  </div>
+</article>

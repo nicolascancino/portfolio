@@ -1,0 +1,170 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Section from "../components/Section.astro";
+import WorkCard from "../components/WorkCard.astro";
+
+const email = "ncancino7@gmail.com";
+const github = "https://github.com/nicolascancino";
+const linkedin = "https://www.linkedin.com/in/nicolascancino/";
+
+const stack = {
+  "Languages": ["Go", "TypeScript", "JavaScript", "SQL", "HTML", "CSS"],
+  "Backend": ["Go (chi, GORM)", "PostgreSQL", "REST", "JWT auth", "Hexagonal architecture", "testify", "testcontainers"],
+  "Frontend": ["Astro", "Tailwind CSS", "PWA / service workers", "hls.js"],
+  "Cloud / Infra": ["Google Cloud Run", "Cloudflare Workers", "Cloudflare R2", "Supabase", "Workload Identity Federation", "GitHub Actions"],
+  "Tooling": ["Docker", "Git", "ripgrep", "Conventional Commits", "Spec-Driven Development"],
+};
+---
+
+<Layout>
+  <main class="flex-1">
+    <!-- Hero -->
+    <header class="pt-24 pb-12 md:pt-32 md:pb-16 border-b border-border-soft">
+      <div class="mx-auto max-w-3xl px-6">
+        <p class="mono text-xs uppercase tracking-[0.18em] text-text-subtle mb-6">
+          Software Engineer
+        </p>
+
+        <h1 class="serif text-5xl md:text-6xl lg:text-7xl font-medium text-text leading-[1.05] tracking-tight mb-8">
+          Nicolás Cancino
+        </h1>
+
+        <p class="text-lg md:text-xl text-text-muted leading-relaxed mb-8 max-w-2xl">
+          I build production SaaS platforms in Go and Astro — backend, frontend,
+          and cloud infra end-to-end. Currently shipping fitness/learning
+          products for real clients.
+        </p>
+
+        <p class="text-base text-text-muted leading-relaxed mb-10 max-w-2xl">
+          <span class="text-text font-medium">Open to remote employment</span>
+          and select freelance work. Based in LATAM, working across timezones.
+        </p>
+
+        <div class="flex flex-wrap gap-x-6 gap-y-3 items-center">
+          <a
+            href={`mailto:${email}`}
+            class="inline-flex items-center gap-2 text-base font-medium text-accent hover:text-accent-hover transition-colors"
+          >
+            {email}
+          </a>
+          <span class="text-text-subtle">·</span>
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-base font-medium text-text-muted hover:text-text transition-colors"
+          >
+            GitHub
+          </a>
+          <span class="text-text-subtle">·</span>
+          <a
+            href={linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-base font-medium text-text-muted hover:text-text transition-colors"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Work -->
+    <Section id="work" label="Selected work" title="Two SaaS platforms shipped to real clients.">
+      <WorkCard
+        title="Ambrocito Training"
+        role="Solo build · 2 days from template clone"
+        client="a calisthenics coach"
+        description="Calisthenics course platform: course → block → session hierarchy, video upload via signed R2 URLs, HMAC-gated playback through a Cloudflare Worker, MercadoPago checkout, JWT auth with Google sign-in linking. Cloned from the danig template in 2 days, then iterated independently."
+        stack={["Go 1.25", "Astro 6", "PostgreSQL", "Cloud Run", "Cloudflare Workers + R2", "Supabase"]}
+        liveUrl="https://ambrocito-web.ncancino7.workers.dev"
+        repoUrl="https://github.com/nicolascancino/ambrocito-training"
+      />
+
+      <WorkCard
+        title="DaniG Yoga"
+        role="Solo build · 8-week original template"
+        client="a yoga instructor"
+        description="Yoga course platform — the original codebase. Hexagonal Go backend (chi + GORM + testify + testcontainers), Astro PWA frontend with hls.js video player, Cloudflare Pages + Cloud Run + Supabase deploy. Authored as a clonable template; ambrocito reuses 90% of its structure."
+        stack={["Go 1.25", "Astro 6", "PostgreSQL", "Cloud Run", "Cloudflare Pages + R2", "Supabase"]}
+        liveUrl="https://danig-web.ncancino7.workers.dev"
+        repoUrl="https://github.com/nicolascancino/danig"
+      />
+    </Section>
+
+    <!-- Approach -->
+    <Section label="How I work" title="Specs first, then code.">
+      <div class="space-y-6 text-base md:text-lg text-text-muted leading-relaxed">
+        <p>
+          Every change in these projects flowed through a lightweight
+          spec-driven workflow: proposal → spec (Given/When/Then) → design →
+          tasks → apply → verify → archive. The artifacts are committed
+          alongside the code in <code class="mono text-sm bg-bg-alt px-1.5 py-0.5 rounded border border-border-soft">openspec/</code>,
+          so the reasoning behind every architectural decision (hybrid naming,
+          AutoMigrate one-shot, dual-auth, secret rotation) survives review and
+          onboarding.
+        </p>
+        <p>
+          I optimize for <em class="serif italic font-medium text-text">decisions documented</em>,
+          not lines of code. CI guards prevent regressions
+          (<code class="mono text-sm bg-bg-alt px-1.5 py-0.5 rounded border border-border-soft">DB_RUN_MIGRATIONS=true</code>
+          in production, donor-template leakage). Bugs caught in production
+          land back in the runbook so the next operator avoids the wall I hit.
+        </p>
+        <p>
+          Tests are integration-heavy with testcontainers — I'd rather catch a
+          schema bug against a real PostgreSQL than mock my way around it.
+        </p>
+      </div>
+    </Section>
+
+    <!-- Stack -->
+    <Section label="Stack" title="Tools I reach for.">
+      <dl class="space-y-8">
+        {Object.entries(stack).map(([category, items]) => (
+          <div class="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-2 md:gap-8">
+            <dt class="serif italic text-text-muted text-base">{category}</dt>
+            <dd class="flex flex-wrap gap-2">
+              {items.map((item) => (
+                <span class="mono text-xs px-2.5 py-1 rounded border border-border bg-bg-alt text-text-muted">
+                  {item}
+                </span>
+              ))}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </Section>
+
+    <!-- Contact -->
+    <Section id="contact" label="Get in touch" title="Let's build something.">
+      <div class="space-y-4 text-base md:text-lg text-text-muted leading-relaxed">
+        <p>
+          Best reached over email. I read everything but reply faster to
+          messages with context — what you're building, what stack, what you'd
+          want from me.
+        </p>
+        <p class="pt-4">
+          <a
+            href={`mailto:${email}?subject=Hello%20Nicol%C3%A1s`}
+            class="serif text-2xl md:text-3xl font-medium text-accent hover:text-accent-hover transition-colors"
+          >
+            {email}
+          </a>
+        </p>
+      </div>
+    </Section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-border-soft py-10">
+    <div class="mx-auto max-w-3xl px-6 flex flex-wrap items-center justify-between gap-4">
+      <p class="mono text-xs text-text-subtle">
+        © {new Date().getFullYear()} Nicolás Cancino
+      </p>
+      <p class="mono text-xs text-text-subtle">
+        Built with Astro + Tailwind. <a href="https://github.com/nicolascancino/portfolio" target="_blank" rel="noopener noreferrer" class="hover:text-text-muted transition-colors">Source</a>.
+      </p>
+    </div>
+  </footer>
+</Layout>
