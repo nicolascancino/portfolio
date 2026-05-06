@@ -2,12 +2,13 @@
 interface Props {
   role: string;
   company: string;
-  period: string;
+  period?: string;
   location?: string;
   summary: string;
 }
 
 const { role, company, period, location, summary } = Astro.props;
+const showMeta = period || location;
 ---
 
 <article class="border-t border-border-soft pt-10 mt-10 first:mt-0 first:border-t-0 first:pt-0">
@@ -16,9 +17,11 @@ const { role, company, period, location, summary } = Astro.props;
       {role}
       <span class="text-text-muted font-normal"> · {company}</span>
     </h3>
-    <p class="mono text-xs uppercase tracking-[0.16em] text-text-subtle mt-1">
-      {period}{location ? ` · ${location}` : ""}
-    </p>
+    {showMeta && (
+      <p class="mono text-xs uppercase tracking-[0.16em] text-text-subtle mt-1">
+        {[period, location].filter(Boolean).join(" · ")}
+      </p>
+    )}
   </header>
 
   <p class="text-base md:text-lg text-text-muted leading-relaxed">
